@@ -1,0 +1,928 @@
+openapi: 3.0.0
+info:
+  title: Car Management API
+  description: API Docs for Challange 6 - Tim 4
+  version: 0.1.9
+servers:
+  - url: http://localhost:8017
+    description: Internal development server
+  - url: https://staging.id
+    description: Internal staging server for testing
+  - url: https://production.id
+    description: Main (production) server
+components:
+  securitySchemes:
+    bearerAuth: # arbitrary name for the security scheme
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      in: header
+paths:
+  # Register Member
+  /api/v1/registerMember:
+    post:
+      summary: Register User With Type Member
+      tags:
+        - Authentication & Authorization
+      description: This is endpoint to register the user as Member.
+      requestBody:
+        description: Email must be filled and password must contain either characters and or numbers.
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+                  example: "usermember@gmail.com"
+                  description: Email must be valid
+                password:
+                  type: string
+                  example: "member123"
+                  description: Password must contain either characters and or numbers.
+        required: true
+      responses:
+        "201":
+          description: Response when the user successfully registered as Member
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: OK
+                  data:
+                    type: object
+                    properties:
+                      id:
+                        type: integer
+                        example: 4
+                      id_type:
+                        type: integer
+                        example: 3
+                      email_user:
+                        type: string
+                        example: member@gmail.com
+                      password_user:
+                        type: string
+                        example: $2a$10$Rav/rzub2ytQnCNFhlISVOl8wH6doTpjgnw.196yz5q4SpW7EPP7.
+                      updatedAt:
+                        type: date
+                        example: 2022-05-16T07:47:08.152Z
+                      createdAt:
+                        type: date
+                        example: 2022-05-16T07:47:08.152Z
+        "422":
+          description: Response when error register the user (If Password is null/empty)
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: "FAIL"
+                  message:
+                    type: string
+                    example: "Password is required"
+  # Register Admin by Superadmin
+  /api/v1/registerAdmin:
+    post:
+      security:
+        - bearerAuth: []
+      summary: Register User Admin Test
+      tags:
+        - Authentication & Authorization
+      description: This is endpoint to register a user as Admin .
+      requestBody:
+        description: "This body is required"
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+                  example: "admin1@email.com"
+                password:
+                  type: string
+                  example: "password"
+        required: true
+      responses:
+        "201":
+          description: Response when user successfully add Admin account
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: integer
+                    example: 1
+                  token:
+                    type: string
+                    example: euyu218730219jdnasdksladm0812eidk21po
+        "400":
+          description: Response when error login the user
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: "Email not valid"
+  # Login Member, Admin, Superadmin
+  /api/v1/login:
+    post:
+      summary: Login User
+      tags:
+        - Authentication & Authorization
+      description: This is the endpoint to log in the user (As Super Admin default).
+      requestBody:
+        description: "This body is required (member@gmail.com for member) (admin@gmail.com for Admin) (superadmin@gmail.com for Superadmin)"
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+                  example: superadmin@gmail.com
+                password:
+                  type: string
+                  example: 123
+        required: true
+      responses:
+        "201":
+          description: Response when user successfully logged in
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: integer
+                    example: 12
+                  id_type:
+                    type: integer
+                    example: 1
+                  token:
+                    type: string
+                    example: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTIsImlkX3R5cGUiOjEsImNyZWF0ZWRBdCI6IjIwMjItMDUtMTFUMTM6Mzk6MTcuMDk1WiIsInVwZGF0ZWRBdCI6IjIwMjItMDUtMTFUMTM6Mzk6MTcuMDk1WiIsImlhdCI6MTY1MjM3MzY2MCwiZXhwIjoxNjUyMzc0MjYwfQ.DWVXaIIjlnfH9sB-RYE91rDzM7DMjeGWmctfdWQA1No
+                  createdAt:
+                    type: date
+                    example: 2022-05-11T13:39:17.095Z
+                  updatedAt:
+                    type: date
+                    example: 2022-05-11T13:39:17.095Z
+        "404":
+          description: Response when user's email are incorrect
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: "Email tidak ditemukan"
+        "401":
+          description: Response when user's password are incorrect
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: "Password Salah!"
+  # Get info login user
+  /api/v1/whoami:
+    get:
+      security:
+        - bearerAuth: []
+      summary: WhoAmI Checker
+      tags:
+        - Authentication & Authorization
+      description: This is the endpoint to check current logged in account's info.
+      responses:
+        "200":
+          description: Response when logged in user is detected
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: OK
+                  data:
+                    type: object
+                    properties:
+                      id:
+                        type: integer
+                        example: 12
+                      id_type:
+                        type: integer
+                        example: 1
+                      email_user:
+                        type: string
+                        example: member1@gmail.com
+                      updatedAt:
+                        type: date
+                        example: 2022-05-16T14:31:31.056Z
+                      createdAt:
+                        type: date
+                        example: 2022-05-16T14:31:31.056Z
+                  message:
+                    type: string
+                    example: You are a super admin
+        "401":
+          description: Response when no user is logged in
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: "Unauthorized"
+  # Get All Cars
+  /api/v1/cars:
+    get:
+      security:
+        - bearerAuth: []
+      summary: Get All Cars
+      tags:
+        - CRUD Cars
+      description: This is the endpoint to get all cars.
+      responses:
+        "200":
+          description: Response when logged in user is detected and get all cars
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: OK
+                  data:
+                    type: object
+                    properties:
+                      Cars:
+                        type: array
+                        items:
+                          type: object
+                          properties:
+                            id:
+                              type: integer
+                              example: 1
+                            size_id:
+                              $ref: #/definitions/Ukur
+                                type: string
+                                example: DBH-3491
+                            manufacture:
+                              type: string
+                              example: Ford
+                            model:
+                              type: string
+                              example: F150
+                            photo:
+                              type: string
+                              xml:
+                              name: photo
+                              wrapped: true
+                              items:
+                                type: string
+                            rentPerDay:
+                              type: integer
+                              example: 500000
+                            capacity:
+                              type: integer
+                              example: 2
+                            description:
+                              type: string
+                              example: Brake assist. Leather-wrapped shift knob. Glove box lamp. Air conditioning w/in-cabin microfilter.
+                            transmission:
+                              type: string
+                              example: Automatic
+                            type:
+                              type: string
+                              example: Sedan
+                            year:
+                              type: string
+                              example: 2022
+                            options:
+                              type: string
+                              example: Cruise Control
+                            specs:
+                              type: string
+                              example: Brake assist
+                            availableAt:
+                              type: string
+                              example: 2022-03-23T15:49:05.563Z
+                            createdAt:
+                              type: date
+                              example: 2022-05-16T14:31:31.056Z
+                            updatedAt:
+                              type: date
+                              example: 2022-05-16T14:31:31.056Z
+        "400":
+          description: Response when error get all cars
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: invalid input syntax
+        "401":
+          description: Response when no user is logged in
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: Unauthorized
+  # Get Car By Id
+  /api/v1/car/{id}:
+    get:
+      security:
+        - bearerAuth: []
+      summary: Get One Car By Id
+      tags:
+        - CRUD Cars
+      description: This is the endpoint to get one car.
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: integer
+          required: true
+          description: Numeric ID of the id car to find car
+      responses:
+        "200":
+          description: Response when logged in user is detected and get car by id
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: OK
+                  data:
+                    type: object
+                    properties:
+                      Cars:
+                        type: array
+                        items:
+                          type: object
+                          properties:
+                            id:
+                              type: integer
+                              example: 1
+                            size_id:
+                              $ref: #/definitions/Ukur
+                                type: string
+                                example: DBH-3491
+                            manufacture:
+                              type: string
+                              example: Ford
+                            model:
+                              type: string
+                              example: F150
+                            photo:
+                              type: string
+                              xml:
+                              name: photo
+                              wrapped: true
+                              items:
+                                type: string
+                            rentPerDay:
+                              type: integer
+                              example: 500000
+                            capacity:
+                              type: integer
+                              example: 2
+                            description:
+                              type: string
+                              example: Brake assist. Leather-wrapped shift knob. Glove box lamp. Air conditioning w/in-cabin microfilter.
+                            transmission:
+                              type: string
+                              example: Automatic
+                            type:
+                              type: string
+                              example: Sedan
+                            year:
+                              type: string
+                              example: 2022
+                            options:
+                              type: string
+                              example: Cruise Control
+                            specs:
+                              type: string
+                              example: Brake assist
+                            availableAt:
+                              type: string
+                              example: 2022-03-23T15:49:05.563Z
+                            createdAt:
+                              type: date
+                              example: 2022-05-16T14:31:31.056Z
+                            updatedAt:
+                              type: date
+                              example: 2022-05-16T14:31:31.056Z
+        "400":
+          description: Response when error get all cars
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: invalid input syntax
+        "401":
+          description: Response when no user is logged in
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: Unauthorized
+  # Create Car
+  /api/v1/cars/create:
+    post:
+      security:
+        - bearerAuth: []
+      summary: Create Car
+      tags:
+        - CRUD Cars
+      description: This is the endpoint to create car.
+      requestBody:
+        description: "Request body to create car"
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                id:
+                  type: integer
+                  example: 1
+                size_id:
+                  $ref: #/definitions/Ukur
+                    type: string
+                    example: DBH-3491
+                manufacture:
+                  type: string
+                  example: Ford
+                model:
+                  type: string
+                  example: F150
+                photo:
+                  type: string
+                  xml:
+                  name: photo
+                  wrapped: true
+                  items:
+                    type: string
+                rentPerDay:
+                  type: integer
+                  example: 500000
+                capacity:
+                  type: integer
+                  example: 2
+                description:
+                  type: string
+                  example: Brake assist. Leather-wrapped shift knob. Glove box lamp. Air conditioning w/in-cabin microfilter.
+                transmission:
+                  type: string
+                  example: Automatic
+                type:
+                  type: string
+                  example: Sedan
+                year:
+                  type: string
+                  example: 2022
+                options:
+                  type: string
+                  example: Cruise Control
+                specs:
+                  type: string
+                  example: Brake assist
+                availableAt:
+                  type: string
+                  example: 2022-03-23T15:49:05.563Z
+                createdAt:
+                  type: date
+                  example: 2022-05-16T14:31:31.056Z
+                updatedAt:
+                  type: date
+                  example: 2022-05-16T14:31:31.056Z
+        required: true
+      responses:
+        "201":
+          description: Response when logged in user as Admin or Superadmin is detected and create car
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: OK
+                  data:
+                    type: object
+                    properties:
+                      Cars:
+                        type: array
+                        items:
+                          type: object
+                          properties:
+                            id:
+                              type: integer
+                              example: 1
+                            size_id:
+                              $ref: #/definitions/Ukur
+                                type: string
+                                example: DBH-3491
+                            manufacture:
+                              type: string
+                              example: Ford
+                            model:
+                              type: string
+                              example: F150
+                            photo:
+                              type: string
+                              xml:
+                              name: photo
+                              wrapped: true
+                              items:
+                                type: string
+                            rentPerDay:
+                              type: integer
+                              example: 500000
+                            capacity:
+                              type: integer
+                              example: 2
+                            description:
+                              type: string
+                              example: Brake assist. Leather-wrapped shift knob. Glove box lamp. Air conditioning w/in-cabin microfilter.
+                            transmission:
+                              type: string
+                              example: Automatic
+                            type:
+                              type: string
+                              example: Sedan
+                            year:
+                              type: string
+                              example: 2022
+                            options:
+                              type: string
+                              example: Cruise Control
+                            specs:
+                              type: string
+                              example: Brake assist
+                            availableAt:
+                              type: string
+                              example: 2022-03-23T15:49:05.563Z
+                            createdAt:
+                              type: date
+                              example: 2022-05-16T14:31:31.056Z
+                            updatedAt:
+                              type: date
+                              example: 2022-05-16T14:31:31.056Z
+                  message:
+                    type: string
+                    example: Car Created
+        "422":
+          description: Response when error create car
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: FAIL
+                  message:
+                    type: string
+                    example: invalid input syntax
+        "403":
+          description: Response when user not authorized to create car
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: FAIL
+                  message:
+                    type: string
+                    example: You are not authorized to perform this action
+  # Update Car
+  /api/v1/cars/update/{id}:
+    put:
+      security:
+        - bearerAuth: []
+      summary: Update Car
+      tags:
+        - CRUD Cars
+      description: This is the endpoint to update car.
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: integer
+          required: true
+          description: Numeric ID of the id car to delete car
+      requestBody:
+        description: "Request body to update car"
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                id:
+                  type: integer
+                  example: 1
+                size_id:
+                  $ref: #/definitions/Ukur
+                    type: string
+                    example: DBH-3491
+                manufacture:
+                  type: string
+                  example: Ford
+                model:
+                  type: string
+                  example: F150
+                photo:
+                  type: string
+                  xml:
+                  name: photo
+                  wrapped: true
+                  items:
+                    type: string
+                rentPerDay:
+                  type: integer
+                  example: 500000
+                capacity:
+                  type: integer
+                  example: 2
+                description:
+                  type: string
+                  example: Brake assist. Leather-wrapped shift knob. Glove box lamp. Air conditioning w/in-cabin microfilter.
+                transmission:
+                  type: string
+                  example: Automatic
+                type:
+                  type: string
+                  example: Sedan
+                year:
+                  type: string
+                  example: 2022
+                options:
+                  type: string
+                  example: Cruise Control
+                specs:
+                  type: string
+                  example: Brake assist
+                availableAt:
+                  type: string
+                  example: 2022-03-23T15:49:05.563Z
+        required: true
+      responses:
+        "201":
+          description: Response when logged in user as Admin or Superadmin is detected and update car
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: OK
+                  message:
+                    type: string
+                    example: Car Updated
+        "422":
+          description: Response when error update car
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: FAIL
+                  message:
+                    type: string
+                    example: invalid input syntax
+        "403":
+          description: Response when user not authorized to update car
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: FAIL
+                  message:
+                    type: string
+                    example: You are not authorized to perform this action
+  # Delete Car
+  /api/v1/cars/delete/{id}:
+    delete:
+      security:
+        - bearerAuth: []
+      summary: Delete Car
+      tags:
+        - CRUD Cars
+      description: This is the endpoint to delete car.
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: integer
+          required: true
+          description: Numeric ID of the id car to delete car
+      responses:
+        "200":
+          description: Response when logged in user as Admin or Superadmin is detected and delete car
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: OK
+                  message:
+                    type: string
+                    example: Car Deleted
+        "422":
+          description: Response when error delete car
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: FAIL
+                  message:
+                    type: string
+                    example: invalid input syntax
+        "403":
+          description: Response when user not authorized to delete car
+          content:
+            application/json:
+            schema:
+              type: object
+              properties:
+                status:
+                  type: string
+                  example: FAIL
+                message:
+                  type: string
+                  example: You are not authorized to perform this action
+
+  # Get User by ID
+  /api/v1/user/{id}:
+    get:
+      security:
+        - bearerAuth: []
+      summary: Get User By Id
+      tags:
+        - CRUD User
+      description: This is the endpoint to get user by id.
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: integer
+          required: true
+          description: Numeric ID of the id user to find user
+      responses:
+        "200":
+          description: Response when logged in user as Superadmin is detected and get user by id
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: OK
+                  data:
+                    type: object
+                    properties:
+                      id:
+                        type: integer
+                        example: 16
+                      id_type:
+                        type: integer
+                        example: 3
+                      email_user:
+                        type: string
+                        example: testing1@gmail.com
+                      password_user:
+                        type: string
+                        example: $2a$10$Rav/rzub2ytQnCNFhlISVOl8wH6doTpjgnw.196yz5q4SpW7EPP7.
+                      updatedAt:
+                        type: date
+                        example: 2022-05-12T07:47:08.152Z
+                      createdAt:
+                        type: date
+                        example: 2022-05-12T07:47:08.152Z
+        "422":
+          description: Response when error get user by id
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: FAIL
+                  message:
+                    type: string
+                    example: invalid input syntax
+        "403":
+          description: Response when user member logged in
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: FAIL
+                  message:
+                    type: string
+                    example: You are not authorized to perform this action
+  # Delete User by ID
+  /api/v1/deleteUsers/{id}:
+    delete:
+      security:
+        - bearerAuth: []
+      summary: Delete User
+      tags:
+        - CRUD User
+      description: This is the endpoint to delete user.
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: integer
+          required: true
+          description: Numeric ID of the id user to delete user
+      responses:
+        "200":
+          description: Response when logged in user as Superadmin is detected and delete user
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: OK
+                  message:
+                    type: string
+                    example: User has been deleted
+        "422":
+          description: Response when error delete car
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: FAIL
+                  message:
+                    type: string
+                    example: invalid input syntax
+        "403":
+          description: Response when user not authorized to delete car
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: FAIL
+                  message:
+                    type: string
+                    example: You are not authorized to perform this action

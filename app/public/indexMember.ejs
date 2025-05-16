@@ -1,0 +1,996 @@
+<!DOCTYPE html>
+<html lang="en" class="h-100">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <!-- Bootstrap CSS -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3"
+      crossorigin="anonymous"
+    />
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
+      crossorigin="anonymous"
+    ></script>
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css"
+    />
+    <title>BINAR CAR - Challange 4</title>
+    <link rel="stylesheet" href="css/index.css" />
+    <style>
+      html {
+        scroll-behavior: smooth;
+        overflow-x: hidden;
+      }
+
+      .btn-car {
+        padding: 6px 6rem;
+      }
+
+      .btn-car {
+        padding: 6px 6rem;
+      }
+
+      @media (max-width: 768px) {
+        #beluga {
+          display: block;
+          margin-left: auto;
+          margin-right: auto;
+          max-width: 150px;
+        }
+        #mencenter {
+          text-align: center;
+        }
+        #halamanAwal,
+        #ourServices,
+        #pesen {
+          width: 90%;
+        }
+      }
+    </style>
+  </head>
+
+  <body class="d-flex flex-column h-100">
+    <header>
+      <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <div class="container-fluid">
+          <a class="navbar-brand mx-5" href="#halamanAwal">BNC</a>
+          <button
+            class="navbar-toggler"
+            type="button"
+            data-bs-toggle="collapse"
+            data-bs-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent"
+            aria-expanded="false"
+            aria-label="Toggle navigation"
+          >
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav ms-auto mb-2 mx-5 mb-lg-0">
+              <li class="nav-item">
+                <a class="nav-link" aria-current="page" href="#ourServices"
+                  >Our Services</a
+                >
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#whyUs">Why Us</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#testimonials">Testimonials</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#faq">FAQ</a>
+              </li>
+              <li class="nav-item px-1">
+                <div class="btn-group">
+                  <button
+                    type="button"
+                    class="btn dropdown-toggle"
+                    data-bs-toggle="dropdown"
+                    data-bs-display="static"
+                    aria-expanded="false"
+                  >
+                    Member
+                  </button>
+                  <ul class="dropdown-menu dropdown-menu-sm-end">
+                    <li>
+                      <button class="dropdown-item" type="button">
+                        Action
+                      </button>
+                    </li>
+                    <li>
+                      <button class="dropdown-item" type="button">
+                        Another action
+                      </button>
+                    </li>
+                    <li>
+                      <button class="dropdown-item" type="button">
+                        Something else here
+                      </button>
+                    </li>
+                  </ul>
+                </div>
+              </li>
+              <li class="nav-item px-1">
+                <a
+                  type="button"
+                  class="btn btn-sm btn-success nav-link text-light"
+                  data-bs-toggle="modal"
+                  data-bs-target="#modalRegister"
+                  >Register</a
+                >
+                <!-- <button type="button" class="btn btn-success">Mulai Sewa Mobil</button> -->
+                <!-- The Modal -->
+                <div class="modal" id="modalRegister">
+                  <div class="modal-dialog">
+                    <div class="modal-content">
+                      <!-- Modal Header -->
+                      <div class="modal-header">
+                        <h4 class="modal-title">Register</h4>
+                        <button
+                          type="button"
+                          class="btn-close"
+                          data-bs-dismiss="modal"
+                        ></button>
+                      </div>
+
+                      <!-- Modal body -->
+                      <div class="modal-body">
+                        <form
+                          action="/api/v1/registerMember"
+                          method="post"
+                          enctype="multipart/form"
+                        >
+                          <div class="mb-3">
+                            <label for="exampleInputEmail1" class="form-label"
+                              >Email address</label
+                            >
+                            <input
+                              type="email"
+                              name="email_user"
+                              class="form-control"
+                              id="exampleInputEmail1"
+                              aria-describedby="emailHelp"
+                            />
+                          </div>
+                          <div class="mb-3">
+                            <label
+                              for="exampleInputPassword1"
+                              class="form-label"
+                              >Password</label
+                            >
+                            <input
+                              type="password"
+                              name="password_user"
+                              class="form-control"
+                              id="exampleInputPassword1"
+                            />
+                          </div>
+                          <!-- Modal footer -->
+                          <div
+                            class="modal-footer d-flex justify-content-center"
+                          >
+                            <button
+                              type="submit"
+                              class="btn btn-success"
+                              data-bs-dismiss=""
+                            >
+                              Register
+                            </button>
+                            <button
+                              type="button"
+                              class="btn btn-danger"
+                              data-bs-dismiss="modal"
+                            >
+                              Close
+                            </button>
+                          </div>
+                        </form>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </nav>
+    </header>
+    <section class="mb-5" id="halamanAwal">
+      <div class="row">
+        <div class="d-flex align-items-center container col-md mx-5 px-4">
+          <div class="container mt-5">
+            <div class="card" style="border: none">
+              <h1>Sewa & Rental Mobil Terbaik di kawasan (Lokasimu)</h1>
+              <p>
+                Selamat datang di Binar Car Rental. Kami menyediakan mobil
+                kualitas terbaik dengan harga terjangkau. Selalu siap melayani
+                kebutuhanmu untuk sewa mobil selama 24 jam.
+              </p>
+            </div>
+            <a type="button" class="btn btn-success" href="cars">
+              Sewa Sekarang
+            </a>
+          </div>
+        </div>
+        <div class="d-flex justify-content-end align-items-end col-md">
+          <img src="./images/img_car.png" style="width: 90%; height: auto" />
+        </div>
+      </div>
+    </section>
+    <section class="mb-5" id="ourServices">
+      <div class="row">
+        <div class="d-flex justify-content-center col-md ms-5 ps-4">
+          <div class="my-5">
+            <img
+              class="img-fluid"
+              src="./images/img_service.png"
+              style="width: 70%"
+            />
+          </div>
+        </div>
+        <div class="d-flex justify-content-start col-md mx-5 px-4">
+          <div class="mx-3">
+            <div class="card" style="border: none">
+              <h3>Best Car Rental for any kind of trip in (Lokasimu)!</h3>
+              <p>
+                Sewa mobil di (Lokasimu) bersama Binar Car Rental jaminan harga
+                lebih murah dibandingkan yang lain, kondisi mobil baru, serta
+                kualitas pelayanan terbaik untuk perjalanan wisata, bisnis,
+                wedding, meeting, dll.
+              </p>
+            </div>
+            <div>
+              <table class="table table-borderless">
+                <tbody>
+                  <tr>
+                    <td>
+                      <i
+                        class="bi bi-check-circle-fill pe-5"
+                        style="color: darkblue"
+                      ></i>
+                    </td>
+                    <td>
+                      <p>Sewa Mobil Dengan Supir di Bali 12 Jam</p>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <i
+                        class="bi bi-check-circle-fill pe-5"
+                        style="color: darkblue"
+                      ></i>
+                    </td>
+                    <td>
+                      <p>Sewa Mobil Lepas Kunci di Bali 24 Jam</p>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <i
+                        class="bi bi-check-circle-fill pe-5"
+                        style="color: darkblue"
+                      ></i>
+                    </td>
+                    <td>
+                      <p>Sewa Mobil Jangka Panjang Bulanan</p>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <i
+                        class="bi bi-check-circle-fill pe-5"
+                        style="color: darkblue"
+                      ></i>
+                    </td>
+                    <td>
+                      <p>Gratis Antar - Jemput Mobil di Bandara</p>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <i
+                        class="bi bi-check-circle-fill pe-5"
+                        style="color: darkblue"
+                      ></i>
+                    </td>
+                    <td>
+                      <p>Layanan Airport Transfer / Drop In Out</p>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <section class="mb-5" id="whyUs">
+      <div class="container mb-5">
+        <div class="card" style="border: none">
+          <h1 id="mencenter">Why Us?</h1>
+          <p id="mencenter">Mengapa harus pilih Binar Car Rental?</p>
+        </div>
+      </div>
+      <div class="d-flex justify-content-center mx-5 px-5">
+        <div class="row row-cols-1 row-cols-md-4 g-4">
+          <div class="col">
+            <div class="card h-100">
+              <div class="d-flex align-items-center p-3">
+                <img src="./images/icon_complete.png" />
+              </div>
+              <div class="card-body">
+                <h5 class="card-title">Mobil Lengkap</h5>
+                <p class="card-text">
+                  Tersedia banyak pilihan mobil, kondisi masih baru, bersih dan
+                  terawat
+                </p>
+              </div>
+            </div>
+          </div>
+          <div class="col">
+            <div class="card h-100">
+              <div class="d-flex align-items-center p-3">
+                <img src="./images/icon_price.png" />
+              </div>
+
+              <div class="card-body">
+                <h5 class="card-title">Harga Murah</h5>
+                <p class="card-text">
+                  Harga murah dan bersaing, bisa bandingkan harga kami dengan
+                  rental mobil lain
+                </p>
+              </div>
+            </div>
+          </div>
+          <div class="col">
+            <div class="card h-100">
+              <div class="d-flex align-items-center p-3">
+                <img src="./images/icon_24hrs.png" />
+              </div>
+
+              <div class="card-body">
+                <h5 class="card-title">Layanan 24 Jam</h5>
+                <p class="card-text">
+                  Siap melayani kebutuhan Anda selama 24 jam nonstop. Kami juga
+                  tersedia di akhir minggu
+                </p>
+              </div>
+            </div>
+          </div>
+          <div class="col">
+            <div class="card h-100">
+              <div class="d-flex align-items-center p-3">
+                <img src="./images/icon_professional.png" />
+              </div>
+
+              <div class="card-body">
+                <h5 class="card-title">Sopir Profesional</h5>
+                <p class="card-text">
+                  Sopir yang profesional, berpengalaman, jujur, ramah dan selalu
+                  tepat waktu
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <section id="testimonials">
+      <div class="mb-5 mx-5 px-4 text-center">
+        <h3>Testimonials</h3>
+        <p>Berbagai review positif dari para pelanggan kami</p>
+      </div>
+      <div class="d-flex justify-content-center mx-3 px-3">
+        <div
+          id="carouselExampleControls"
+          class="carousel slide"
+          data-bs-ride="carousel"
+        >
+          <div class="carousel-inner px-5">
+            <div class="carousel-item active">
+              <div class="row row-cols-1 row-cols-md-3 g-4">
+                <div class="col">
+                  <div class="card h-100">
+                    <div class="d-flex align-items-center card-body">
+                      <div class="row">
+                        <div class="d-flex align-items-center col-md-4">
+                          <img
+                            src="./images/beluga.jpg"
+                            class="img-fluid rounded-circle"
+                            id="beluga"
+                          />
+                        </div>
+                        <div class="col-md-8">
+                          <p class="text-warning text-center">
+                            <i class="bi bi-star-fill"></i
+                            ><i class="bi bi-star-fill"></i
+                            ><i class="bi bi-star-fill"></i
+                            ><i class="bi bi-star-fill"></i
+                            ><i class="bi bi-star"></i>
+                          </p>
+                          <p class="text-center">
+                            <small
+                              >“Lorem ipsum dolor sit amet, consectetur
+                              adipiscing elit, sed do eiusmod lorem ipsum dolor
+                              sit amet, consectetur adipiscing elit, sed do
+                              eiusmod lorem ipsum dolor sit amet, consectetur
+                              adipiscing elit, sed do eiusmod”</small
+                            >
+                          </p>
+                          <p class="text-center">Beluga 32, Amogus Village</p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col">
+                  <div class="card h-100">
+                    <div class="d-flex align-items-center card-body">
+                      <div class="row">
+                        <div class="d-flex align-items-center col-md-4">
+                          <img
+                            src="./images/skittle-chan.jpg"
+                            class="img-fluid rounded-circle"
+                            id="beluga"
+                          />
+                        </div>
+                        <div class="col-md-8">
+                          <p class="text-warning text-center">
+                            <i class="bi bi-star-fill"></i
+                            ><i class="bi bi-star-fill"></i
+                            ><i class="bi bi-star-fill"></i
+                            ><i class="bi bi-star-fill"></i
+                            ><i class="bi bi-star-fill"></i>
+                          </p>
+                          <p class="text-center">
+                            <small
+                              >“Lorem ipsum dolor sit amet, consectetur
+                              adipiscing elit, sed do eiusmod lorem ipsum dolor
+                              sit amet, consectetur adipiscing elit, sed do
+                              eiusmod lorem ipsum dolor sit amet, consectetur
+                              adipiscing elit, sed do eiusmod”</small
+                            >
+                          </p>
+                          <p class="text-center">
+                            Skittle-chan 32, Amogus Village
+                          </p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col">
+                  <div class="card h-100">
+                    <div class="d-flex align-items-center card-body">
+                      <div class="row">
+                        <div class="d-flex align-items-center col-md-4">
+                          <img
+                            src="./images/heker.jpg"
+                            class="img-fluid rounded-circle"
+                            id="beluga"
+                          />
+                        </div>
+                        <div class="col-md-8">
+                          <p class="text-warning text-center">
+                            <i class="bi bi-star-fill"></i
+                            ><i class="bi bi-star-fill"></i
+                            ><i class="bi bi-star-fill"></i
+                            ><i class="bi bi-star-fill"></i
+                            ><i class="bi bi-star"></i>
+                          </p>
+                          <p class="text-center">
+                            <small
+                              >“Lorem ipsum dolor sit amet, consectetur
+                              adipiscing elit, sed do eiusmod lorem ipsum dolor
+                              sit amet, consectetur adipiscing elit, sed do
+                              eiusmod lorem ipsum dolor sit amet, consectetur
+                              adipiscing elit, sed do eiusmod”</small
+                            >
+                          </p>
+                          <p class="text-center">Hecker 34, Anonymus Village</p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="carousel-item">
+              <div class="row row-cols-1 row-cols-md-3 g-4">
+                <div class="col">
+                  <div class="card h-100">
+                    <div class="d-flex align-items-center card-body">
+                      <div class="row">
+                        <div class="d-flex align-items-center col-md-4">
+                          <img
+                            src="./images/skittle.jpg"
+                            class="img-fluid rounded-circle"
+                            id="beluga"
+                          />
+                        </div>
+                        <div class="col-md-8">
+                          <p class="text-warning text-center">
+                            <i class="bi bi-star-fill"></i
+                            ><i class="bi bi-star-fill"></i
+                            ><i class="bi bi-star-fill"></i
+                            ><i class="bi bi-star-fill"></i
+                            ><i class="bi bi-star-fill"></i>
+                          </p>
+                          <p class="text-center">
+                            <small
+                              >“Lorem ipsum dolor sit amet, consectetur
+                              adipiscing elit, sed do eiusmod lorem ipsum dolor
+                              sit amet, consectetur adipiscing elit, sed do
+                              eiusmod lorem ipsum dolor sit amet, consectetur
+                              adipiscing elit, sed do eiusmod”</small
+                            >
+                          </p>
+                          <p class="text-center">
+                            Skittle 31, Anonymus Village
+                          </p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col">
+                  <div class="card h-100">
+                    <div class="d-flex align-items-center card-body">
+                      <div class="row">
+                        <div class="d-flex align-items-center col-md-4">
+                          <img
+                            src="./images/scemmer.jpg"
+                            class="img-fluid rounded-circle"
+                            id="beluga"
+                          />
+                        </div>
+                        <div class="col-md-8">
+                          <p class="text-warning text-center">
+                            <i class="bi bi-star-fill"></i
+                            ><i class="bi bi-star-fill"></i
+                            ><i class="bi bi-star-fill"></i
+                            ><i class="bi bi-star"></i
+                            ><i class="bi bi-star"></i>
+                          </p>
+                          <p class="text-center">
+                            <small
+                              >“Lorem ipsum dolor sit amet, consectetur
+                              adipiscing elit, sed do eiusmod lorem ipsum dolor
+                              sit amet, consectetur adipiscing elit, sed do
+                              eiusmod lorem ipsum dolor sit amet, consectetur
+                              adipiscing elit, sed do eiusmod”</small
+                            >
+                          </p>
+                          <p class="text-center">Scemmer 27, Fakus Village</p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col">
+                  <div class="card h-100">
+                    <div class="d-flex align-items-center card-body">
+                      <div class="row">
+                        <div class="d-flex align-items-center col-md-4">
+                          <img
+                            src="./images/pablo.jpg"
+                            class="img-fluid rounded-circle"
+                            id="beluga"
+                          />
+                        </div>
+                        <div class="col-md-8">
+                          <p class="text-warning text-center">
+                            <i class="bi bi-star-fill"></i
+                            ><i class="bi bi-star-fill"></i
+                            ><i class="bi bi-star-fill"></i
+                            ><i class="bi bi-star-fill"></i
+                            ><i class="bi bi-star"></i>
+                          </p>
+                          <p class="text-center">
+                            <small
+                              >“Lorem ipsum dolor sit amet, consectetur
+                              adipiscing elit, sed do eiusmod lorem ipsum dolor
+                              sit amet, consectetur adipiscing elit, sed do
+                              eiusmod lorem ipsum dolor sit amet, consectetur
+                              adipiscing elit, sed do eiusmod”</small
+                            >
+                          </p>
+                          <p class="text-center">Pablo 36, Bri'ish Village</p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="carousel-item">
+              <div class="row row-cols-1 row-cols-md-3 g-4">
+                <div class="col">
+                  <div class="card h-100">
+                    <div class="d-flex align-items-center card-body">
+                      <div class="row">
+                        <div class="d-flex align-items-center col-md-4">
+                          <img
+                            src="./images/belugajr.jpg"
+                            class="img-fluid rounded-circle"
+                            id="beluga"
+                          />
+                        </div>
+                        <div class="col-md-8">
+                          <p class="text-warning text-center">
+                            <i class="bi bi-star-fill"></i
+                            ><i class="bi bi-star-fill"></i
+                            ><i class="bi bi-star-fill"></i
+                            ><i class="bi bi-star-fill"></i
+                            ><i class="bi bi-star-fill"></i>
+                          </p>
+                          <p class="text-center">
+                            <small
+                              >“Lorem ipsum dolor sit amet, consectetur
+                              adipiscing elit, sed do eiusmod lorem ipsum dolor
+                              sit amet, consectetur adipiscing elit, sed do
+                              eiusmod lorem ipsum dolor sit amet, consectetur
+                              adipiscing elit, sed do eiusmod”</small
+                            >
+                          </p>
+                          <p class="text-center">
+                            Beluga jr 13, Anonymus Village
+                          </p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col">
+                  <div class="card h-100">
+                    <div class="d-flex align-items-center card-body">
+                      <div class="row">
+                        <div class="d-flex align-items-center col-md-4">
+                          <img
+                            src="./images/eugene.jpg"
+                            class="img-fluid rounded-circle"
+                            id="beluga"
+                          />
+                        </div>
+                        <div class="col-md-8">
+                          <p class="text-warning text-center">
+                            <i class="bi bi-star-fill"></i
+                            ><i class="bi bi-star-fill"></i
+                            ><i class="bi bi-star-fill"></i
+                            ><i class="bi bi-star-fill"></i
+                            ><i class="bi bi-star"></i>
+                          </p>
+                          <p class="text-center">
+                            <small
+                              >“Lorem ipsum dolor sit amet, consectetur
+                              adipiscing elit, sed do eiusmod lorem ipsum dolor
+                              sit amet, consectetur adipiscing elit, sed do
+                              eiusmod lorem ipsum dolor sit amet, consectetur
+                              adipiscing elit, sed do eiusmod”</small
+                            >
+                          </p>
+                          <p class="text-center">
+                            Eugene 37, Discord Mod Village
+                          </p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col">
+                  <div class="card h-100">
+                    <div class="d-flex align-items-center card-body">
+                      <div class="row">
+                        <div class="d-flex align-items-center col-md-4">
+                          <img
+                            src="./images/miau.jpg"
+                            class="img-fluid rounded-circle"
+                            id="beluga"
+                          />
+                        </div>
+                        <div class="col-md-8">
+                          <p class="text-warning text-center">
+                            <i class="bi bi-star-fill"></i
+                            ><i class="bi bi-star-fill"></i
+                            ><i class="bi bi-star-fill"></i
+                            ><i class="bi bi-star-fill"></i
+                            ><i class="bi bi-star-fill"></i>
+                          </p>
+                          <p class="text-center">
+                            <small
+                              >“Lorem ipsum dolor sit amet, consectetur
+                              adipiscing elit, sed do eiusmod lorem ipsum dolor
+                              sit amet, consectetur adipiscing elit, sed do
+                              eiusmod lorem ipsum dolor sit amet, consectetur
+                              adipiscing elit, sed do eiusmod”</small
+                            >
+                          </p>
+                          <p class="text-center">Miau 34, UwU Village</p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div>
+            <div class="d-flex justify-content-center p-3">
+              <a
+                class="btn btn-outline-dark mb-3 mr-1 btn-sm me-3 rounded-circle"
+                data-bs-target="#carouselExampleControls"
+                role="button"
+                data-bs-slide="prev"
+              >
+                <i class="bi bi-chevron-left"></i>
+              </a>
+              <a
+                class="btn btn-success mb-3 btn-sm ms-3 rounded-circle"
+                data-bs-target="#carouselExampleControls"
+                role="button"
+                data-bs-slide="next"
+              >
+                <i class="bi bi-chevron-right"></i>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <section class="container" id="pesen">
+      <div class="mb-5 bg-primary rounded">
+        <div class="mb-5 mt-5 pt-5 text-center text-light">
+          <h1>Sewa Mobil di (Lokasimu) Sekarang</h1>
+          <p>
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+            eiusmod tempor incididunt ut labore et dolore magna aliqua.
+          </p>
+        </div>
+        <div class="d-flex justify-content-center mb-5 pb-5">
+          <button type="button" class="btn btn-success">
+            Mulai Sewa Mobil
+          </button>
+        </div>
+      </div>
+    </section>
+    <section class="container mb-5" id="faq">
+      <div class="row mt-3">
+        <div class="d-flex justify-content-start col-md-5">
+          <div class="px-3">
+            <h3 class="mb-5">Frequently Asked Question</h3>
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit</p>
+          </div>
+        </div>
+        <div class="col-md-7">
+          <div class="accordion accordion-flush" id="accordionFlushExample">
+            <div class="accordion-item">
+              <h2 class="accordion-header" id="flush-headingOne">
+                <button
+                  class="accordion-button collapsed"
+                  type="button"
+                  data-bs-toggle="collapse"
+                  data-bs-target="#flush-collapseOne"
+                  aria-expanded="false"
+                  aria-controls="flush-collapseOne"
+                >
+                  Apa saja syarat yang dibutuhkan?
+                </button>
+              </h2>
+              <div
+                id="flush-collapseOne"
+                class="accordion-collapse collapse"
+                aria-labelledby="flush-headingOne"
+                data-bs-parent="#accordionFlushExample"
+              >
+                <div class="accordion-body">
+                  Placeholder content for this accordion, which is intended to
+                  demonstrate the <code>.accordion-flush</code> class. This is
+                  the first item's accordion body.
+                </div>
+              </div>
+            </div>
+            <div class="accordion-item">
+              <h2 class="accordion-header" id="flush-headingTwo">
+                <button
+                  class="accordion-button collapsed"
+                  type="button"
+                  data-bs-toggle="collapse"
+                  data-bs-target="#flush-collapseTwo"
+                  aria-expanded="false"
+                  aria-controls="flush-collapseTwo"
+                >
+                  Berapa hari minimal sewa mobil lepas kunci?
+                </button>
+              </h2>
+              <div
+                id="flush-collapseTwo"
+                class="accordion-collapse collapse"
+                aria-labelledby="flush-headingTwo"
+                data-bs-parent="#accordionFlushExample"
+              >
+                <div class="accordion-body">
+                  Placeholder content for this accordion, which is intended to
+                  demonstrate the <code>.accordion-flush</code> class. This is
+                  the second item's accordion body. Let's imagine this being
+                  filled with some actual content.
+                </div>
+              </div>
+            </div>
+            <div class="accordion-item">
+              <h2 class="accordion-header" id="flush-headingThree">
+                <button
+                  class="accordion-button collapsed"
+                  type="button"
+                  data-bs-toggle="collapse"
+                  data-bs-target="#flush-collapseThree"
+                  aria-expanded="false"
+                  aria-controls="flush-collapseThree"
+                >
+                  Berapa hari sebelumnya sabaiknya booking sewa mobil?
+                </button>
+              </h2>
+              <div
+                id="flush-collapseThree"
+                class="accordion-collapse collapse"
+                aria-labelledby="flush-headingThree"
+                data-bs-parent="#accordionFlushExample"
+              >
+                <div class="accordion-body">
+                  Placeholder content for this accordion, which is intended to
+                  demonstrate the <code>.accordion-flush</code> class. This is
+                  the third item's accordion body. Nothing more exciting
+                  happening here in terms of content, but just filling up the
+                  space to make it look, at least at first glance, a bit more
+                  representative of how this would look in a real-world
+                  application.
+                </div>
+              </div>
+            </div>
+            <div class="accordion-item">
+              <h2 class="accordion-header" id="flush-headingFour">
+                <button
+                  class="accordion-button collapsed"
+                  type="button"
+                  data-bs-toggle="collapse"
+                  data-bs-target="#flush-collapseFour"
+                  aria-expanded="false"
+                  aria-controls="flush-collapseFour"
+                >
+                  Apakah Ada biaya antar-jemput?
+                </button>
+              </h2>
+              <div
+                id="flush-collapseFour"
+                class="accordion-collapse collapse"
+                aria-labelledby="flush-headingFour"
+                data-bs-parent="#accordionFlushExample"
+              >
+                <div class="accordion-body">
+                  Placeholder content for this accordion, which is intended to
+                  demonstrate the <code>.accordion-flush</code> class. This is
+                  the third item's accordion body. Nothing more exciting
+                  happening here in terms of content, but just filling up the
+                  space to make it look, at least at first glance, a bit more
+                  representative of how this would look in a real-world
+                  application.
+                </div>
+              </div>
+            </div>
+            <div class="accordion-item">
+              <h2 class="accordion-header" id="flush-headingFive">
+                <button
+                  class="accordion-button collapsed"
+                  type="button"
+                  data-bs-toggle="collapse"
+                  data-bs-target="#flush-collapseFive"
+                  aria-expanded="false"
+                  aria-controls="flush-collapseFive"
+                >
+                  Bagaimana jika terjadi kecelakaan?
+                </button>
+              </h2>
+              <div
+                id="flush-collapseFive"
+                class="accordion-collapse collapse"
+                aria-labelledby="flush-headingFive"
+                data-bs-parent="#accordionFlushExample"
+              >
+                <div class="accordion-body">
+                  Placeholder content for this accordion, which is intended to
+                  demonstrate the <code>.accordion-flush</code> class. This is
+                  the third item's accordion body. Nothing more exciting
+                  happening here in terms of content, but just filling up the
+                  space to make it look, at least at first glance, a bit more
+                  representative of how this would look in a real-world
+                  application.
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <footer class="footer mt-auto bg-light">
+      <div class="text-dark fs-6 p-3">
+        <div class="row px-5">
+          <div class="col-md">
+            <div class="row">
+              <div class="col-sm">
+                <p>
+                  Jalan Suroyo No. 161 Mayangan <br />Kota Probolonggo 672000
+                </p>
+                <p>binarcarrental@gmail.com</p>
+                <p>081-233-334-808</p>
+              </div>
+              <div class="col-sm">
+                <ul class="list-unstyled">
+                  <li class="mb-3">
+                    <a
+                      class="link-dark text-decoration-none"
+                      href="#ourServices"
+                      >Our Services</a
+                    >
+                  </li>
+                  <li class="mb-3">
+                    <a class="link-dark text-decoration-none" href="#whyUs"
+                      >Why Us</a
+                    >
+                  </li>
+                  <li class="mb-3">
+                    <a
+                      class="link-dark text-decoration-none"
+                      href="#testimonials"
+                      >Testimonials</a
+                    >
+                  </li>
+                  <li class="mb-3">
+                    <a class="link-dark text-decoration-none" href="#faq"
+                      >FAQ</a
+                    >
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+          <div class="col-md">
+            <div class="row">
+              <div class="col-sm">
+                <p>Connect with us</p>
+                <ul class="list-inline">
+                  <li class="list-inline-item">
+                    <a class="bi bi-facebook" href="#"></a>
+                  </li>
+                  <li class="list-inline-item">
+                    <a class="bi bi-instagram" href="#"></a>
+                  </li>
+                  <li class="list-inline-item">
+                    <a class="bi bi-twitter" href="#"></a>
+                  </li>
+                  <li class="list-inline-item">
+                    <a class="bi bi-envelope" href="#"></a>
+                  </li>
+                  <li class="list-inline-item">
+                    <a class="bi bi-twitch" href="#"></a>
+                  </li>
+                </ul>
+              </div>
+              <div class="col-sm">
+                <p>Copyright Binar 2022</p>
+                <h3>BNC</h3>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

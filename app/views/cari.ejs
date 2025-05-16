@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>BCR</title>
+    <link rel="stylesheet" href="/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="/css/style2.css" />
+    <link rel="stylesheet" href="/css/cari.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.0/font/bootstrap-icons.css"
+        integrity="sha384-ejwKkLla8gPP8t2u0eQyL0Q/4ItcnyveF505U0NIobD/SMsNyXrLti6CWaD0L52l" crossorigin="anonymous" />
+</head>
+
+<body>
+    <!-- Navbar -->
+    <header>
+        <nav class="navbar navbar-expand-md navbar-dark bg-dark shadow sticky-top">
+            <div class="container">
+                <a href="/home" class="navbar-brand">
+                    <div class="logo">
+                      <h2>BCR</h2>
+                    </div>
+                  </a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse bg-dark navbar-dark p-2 rounded" id="navbarNavAltMarkup">
+                    <ul class="navbar-nav ms-auto">
+                        <li class="nav-item mx-2">
+                            <a href="#ourservices" class="nav-link">Our Services </a>
+                        </li>
+                        <li class="nav-item mx-2">
+                            <a href="#whyus" class="nav-link">Why Us</a>
+                        </li>
+                        <li class="nav-item mx-2">
+                            <a href="#testimonials" class="nav-link">Testimonial</a>
+                        </li>
+                        <li class="nav-item mx-2">
+                            <a href="#faq" class="nav-link">FAQ</a>
+                        </li>
+                        <li class="nav-item mx-2">
+                            <a href="/login" class="nav-link __register px-4 text-dark text-center">Login</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+    <!-- Hero Section -->
+    <section id="home">
+        <div class="container d-flex">
+            <div class="row row-cols-1 row-cols-md-1 row-cols-lg-2 g-md-1 g-lg-2">
+                <div class="col my-5">
+                    <h2 class="my-5 fw-bold">
+                        Sewa & Rental Mobil Terbaik di kawasan Bandung Raya
+                    </h2>
+                    <p>
+                        Selamat datang di Binar Car Rental. Kami menyediakan mobil
+                        kualitas terbaik dengan harga terjangkau. Selalu siap melayani
+                        kebutuhanmu untuk sewa mobil selama 24 jam.
+                    </p>
+                    <!-- <a href="#" class="shadow-lg"><span data-attr="Sewa">Sewa</span><span
+                            data-attr="Sekarang">Sekarang</span></a> -->
+                </div>
+                <div class="col my-5">
+                    <img class="img-fluid __car" src="/images/merci.svg" alt="Car" />
+                </div>
+            </div>
+        </div>
+        <div class="__stand bg-primary"></div>
+    </section>
+    <!-- End Hero section -->
+
+    <section class="form__section">
+        <div class="content ct__form">
+            <form action="/cari/mobil" method="post">
+                <div class="row row__button">
+                    <div class="col-xl-10">
+                        <div class="row">
+                            <div class="col-12 col-md-6 col-lg-6 col-xl-3">
+                                <label for="driverType" class="form-label">Tipe Driver</label>
+                                <select class="form-select" id="form_driverType" name="driver">
+                                    <option hidden>Pilih Tipe Driver</option>
+                                    <option value="true">Dengan Sopir</option>
+                                    <option value="false">Tanpa Sopir (Lepas Kunci)</option>
+                                </select>
+                            </div>
+                            <div class="col-12 col-md-6 col-lg-6 col-xl-3">
+                                <label for="form_date" class="form-label">Tanggal</label>
+                                <input type="date" class="form-control" id="form_date" name="tanggal" placeholder="Pilih Tanggal">
+                            </div>
+                            <div class="col-12 col-md-6 col-lg-6 col-xl-3">
+                                <label for="form_time" class="form-label">Waktu Jemput/Ambil</label>
+                                <input type="time" class="form-control" id="form_time" name="waktu" placeholder="Pilih Waktu">
+                            </div>
+                            <div class="col-12 col-md-6 col-lg-6 col-xl-3">
+                                <label for="jumlah" class="form-label">Jumlah Penumpang (optional)</label>
+                                <input type="number" class="form-control" id="form_jumlah" name="penumpang" placeholder="Penumpang">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mt-4 col-12 col-md-12 col-lg-12 col-xl-2 d-flex justify-content-start">
+                        <button class="btn btn-success m-1" id="load-btn">Cari</button>
+                        <a href="/cari" id="clear-btn" class="btn btn-danger m-1">Clear</a>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </section>
+
+    <section>
+        <div class="container" style="display: flex;">
+            <% cars.forEach((car)=> { %>            
+                <div class="col-md-3" style="margin:0 10px;">
+                    <div class="card" style="height: 550px">
+                        <img src="/<%= car?.photo %>" class="card-img-top img-fluid p-3" alt="${this.manufacture}" style="height: 190px; object-fit: scale-down;">
+                        <div class="card-body" style="font-size: 14px;">
+                            <p class="card-title"><%= car?.manufacture %> / <%= car.size.size %></p>
+                            <p class="card-text" style="height: 90px"><%= car?.description %></p>
+                            <div class="my-2"><i class="bi bi-people me-2"></i><%= car?.capacity %> Orang</div>
+                            <div class="my-2"><i class="bi bi-gear me-2"></i><%= car?.model %></div>
+                            <div class="my-2"><i class="bi bi-calendar4 me-2"></i><%= car?.updatedAt %></div>
+                            <a href="/booking/<%= car?.id %>" class="btn btn-success text-white w-100 mt-2 fw-bold mt-4" style="font-size: 14px;">Pilih Mobil</a>
+                        </div>
+                    </div>
+                </div>
+            <% }) %>
+        </div>
+    </section>
+    <!-- Footer -->
+    <!-- Remove the container if you want to extend the Footer to full width. -->
+    <footer class="bg-dark text-center text-lg-start text-white">
+        <div class="container py-3">
+        <!-- Grid container -->
+        <div class="container p-4">
+            <!--Grid row-->
+            <div class="row mt-4">
+            <!--Grid column-->
+            <div class="col-lg-3 col-md-6 mb-4 mb-md-0">
+                <ul class="list-unstyled mb-0">
+                <li>
+                    <p>Jl. Raya Cipanji No.20, Citapen, Kec. Cihampelas, Kabupaten Bandung Barat, Jawa Barat 40562</p>
+                </li>
+                <li>
+                    <p>bcr_rentalcar@gmail.com</p>
+                </li>
+                <li>
+                    <p>081-233-334-808</p>
+                </li>
+                </ul>
+            </div>
+            <!--Grid column-->
+
+            <!--Grid column-->
+            <div class="col-lg-3 col-md-6 mb-4 mb-md-0">
+                <ul class="list-unstyled">
+                <li>
+                    <a href="#!" class="text-white">Our Services</a>
+                </li>
+                <li>
+                    <a href="#!" class="text-white">Why Us</a>
+                </li>
+                <li>
+                    <a href="#!" class="text-white">Testimonial</a>
+                </li>
+                <li>
+                    <a href="#!" class="text-white">FAQ</a>
+                </li>
+                </ul>
+            </div>
+            <!--Grid column-->
+
+            <!--Grid column-->
+            <div class="col-lg-3 col-md-6 mb-4 mb-md-0">
+                <p>Connect With Us</p>
+                <ul class="list-unstyled">
+                <li class="py-1">
+                    <!-- Facebook -->
+                    <a class="btn btn-primary btn-floating rounded-circle" style="background-color: #3b5998" href="#!"
+                    role="button"><i class="fa fa-facebook-f" aria-hidden="true"></i></a>
+
+                    <!-- Instagram -->
+                    <a class="btn btn-primary btn-floating rounded-circle" style="background-color: #cb2644" href="#!"
+                    role="button"><i class="fa fa-instagram" aria-hidden="true"></i></a>
+
+                    <!-- Twitter -->
+                    <a class="btn btn-primary btn-floating rounded-circle" style="background-color: #55acee" href="#!"
+                    role="button"><i class="fa fa-twitter" aria-hidden="true"></i></a>
+
+                    <!-- E-mail -->
+                    <a class="btn btn-primary btn-floating rounded-circle" style="background-color: #ea4335" href="#!"
+                    role="button"><i class="fa fa-envelope" aria-hidden="true"></i></a>
+
+                    <!-- Twich -->
+                    <a class="btn btn-primary btn-floating rounded-circle" style="background-color: #8c44f7" href="#!"
+                    role="button"><i class="fa fa-twitch" aria-hidden="true"></i></a>
+                </li>
+                </ul>
+            </div>
+            <!--Grid column-->
+
+            <!--Grid column-->
+            <div class="col-lg-3 col-md-6 mb-4 mb-md-0">
+                <p>Copyright BCR 2022</p>
+            </div>
+            <!--Grid column-->
+            </div>
+            <!--Grid row-->
+        </div>
+        <!-- Grid container -->
+        </div>
+    </footer>
+    <!-- End of .container -->
+    <!-- end Footer -->
+    <!-- sisipan JS -->
+    <script src="/js/bootstrap.bundle.min.js "></script>
+    <script src="/js/script.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,56 @@
+.cari {
+    min-height: 300px;
+}
+
+.rangkap {
+    margin: auto;
+    padding: 10px;
+    /* background-color: aqua; */
+}
+
+.kol {
+    padding: 3px;
+}
+
+/* .tombol {
+    padding-top: 30px;
+} */
+
+.form__section {
+    margin-top: -4%;
+    position: relative;
+    z-index: 1;
+    min-height: 200px;
+}
+
+.ct__form {
+    padding: 30px;
+    border-radius: 15px;
+    background-color: #fff;
+    box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2);
+    width: 80%;
+    margin: auto;
+}
+
+.ct__form label {
+    font-size: 14px;
+}
+
+.ct__form input {
+    font-size: 15px;
+}
+
+.ct__form select {
+    font-size: 15px;
+}
+
+.row__button .btn {
+    width: 50%;
+}
+
+.output {
+    padding: 30px;
+    border-radius: 15px;
+    background-color: #fff;
+    box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2);
+}
