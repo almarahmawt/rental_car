@@ -185,6 +185,17 @@
                         </div>
 
                         <div class="form-grub">
+                            <label for="inputAvailable" class="col-form-label">Available*</label>
+                            <div class="foto">
+                                <select class="form-select" name="available" id="inputAvailable"
+                                    aria-label="Default select example">
+                                    <option value="true" <%= cars.available === true && 'selected' %>>Available </option>
+                                    <option value="false" <%= cars.available === false && 'selected' %>>Not Available </option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="form-grub">
                             <label for="inputPhoto" class="col-form-label">Foto*</label>
                             <div class="foto">
                                 <input required type="file" class="form-control file" name="photo" id="inputPhoto"

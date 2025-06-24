@@ -50,6 +50,7 @@ module.exports = {
     return Cars.findAll({
       include: [{ model: Ukur, as: "size" }],
       where: { 
+        available: requestBody.available,
         driver: requestBody.driver,
         availableAt: {
           [Op.gte]: requestBody.availableAt

@@ -53,6 +53,9 @@ module.exports = {
       availableAt: {
         type: Sequelize.DATE,
       },
+      available:{
+        type: Sequelize.BOOLEAN,
+      },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE,

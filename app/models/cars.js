@@ -31,6 +31,7 @@ module.exports = (sequelize, DataTypes) => {
       options: DataTypes.STRING,
       specs: DataTypes.STRING,
       availableAt: DataTypes.DATE,
+      available: DataTypes.BOOLEAN,
     },
     {
       sequelize,

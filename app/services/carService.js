@@ -7,6 +7,7 @@ module.exports = {
   },
 
   update(id, requestBody) {
+    console.log(requestBody);
     return carsRepository.update(id, requestBody);
   },
 
@@ -21,6 +22,7 @@ module.exports = {
   async search(requestBody) {
     try {
       const cars = await carsRepository.searchCar({
+          available: requestBody.available,
           driver: requestBody.driver,
           availableAt: requestBody.dateTime,
           capacity: requestBody.capacity

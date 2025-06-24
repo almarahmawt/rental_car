@@ -96,26 +96,30 @@ module.exports = {
   },
 
   async findCar(req, res) {
-    carService
-      .search({
-        driver: req.body.driver,
+    try {
+      const driverBool = req.body.driver === "true";
+      const { cars } = await carService.search({
+        available: true,
+        driver: driverBool,
         dateTime: req.body.tanggal,
-        capacity: req.body.penumpang})
-      .then(({ cars }) => {
-        console.log(cars);
-        res.render("./cari", { cars });
-      })
-      .catch((err) => {
-        res.status(400).json({
-          status: "FAIL",
-          message: err.message,
-        });
+        capacity: req.body.penumpang
       });
+      res.render("./cari", { cars });
+    } catch (err) {
+      res.status(400).json({
+        status: "FAIL",
+        message: err.message,
+      });
+    }
   },
 
   async updateCar(req, res) {
-    carService
+    try {
+      const driverBool = req.body.driver === "true";
+      const availBool = req.body.available === "true";
+      carService
       .update(req.params.id, {
+        driver: driverBool,
         size_id: req.body.size_id,
         plate: req.body.plate,
         manufacture: req.body.manufacture,
@@ -130,6 +134,7 @@ module.exports = {
         options: req.body.options,
         specs: req.body.specs,
         availableAt: req.body.availableAt,
+        available: availBool,
       })
       .then(() => {
         res.redirect("/cars");
@@ -140,6 +145,12 @@ module.exports = {
           message: err.message,
         });
       });
+    } catch (err) {
+      res.status(400).json({
+        status: "FAIL",
+        message: err.message,
+      });
+    }
   },
 
   async showCar(req, res) {
