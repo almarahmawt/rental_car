@@ -22,11 +22,13 @@ module.exports = {
   },
 
   async listBooking(req, res) {
-    bookingService
-      .list()
+    const search = req.query.search_car;
+    console.log("Search query:", search);
+    if (search) {
+      bookingService
+      .searchByCar(search)
       .then(({ bookings }) => {
-        console.log("list bookings")
-        console.log(bookings)
+        console.log("Bookings found:", bookings);
         res.render("./dashboardBooking", { bookings });
       })
       .catch((err) => {
@@ -35,6 +37,19 @@ module.exports = {
           message: err.message,
         });
       });
+    } else {
+      bookingService
+      .list()
+      .then(({ bookings }) => {
+        res.render("./dashboardBooking", { bookings });
+      })
+      .catch((err) => {
+        res.status(400).json({
+          status: "FAIL",
+          message: err.message,
+        });
+      });
+    }
   },
 
   createBooking(req, res) {

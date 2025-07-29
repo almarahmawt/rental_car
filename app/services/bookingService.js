@@ -17,6 +17,17 @@ module.exports = {
     return bookingRepository.find(id);
   },
 
+  async searchByCar(search) {
+    try {
+      const bookings = await bookingRepository.searchByCar(search);
+      return {
+        bookings,
+      };
+    } catch (err) {
+      throw err;
+    }
+  },
+
   async list() {
     try {
       const bookings = await bookingRepository.findAll();

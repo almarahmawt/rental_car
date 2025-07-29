@@ -73,16 +73,21 @@ module.exports = {
   },
 
   async main(req, res) {
-    res.render("home");
+    res.render("home", {
+      user: req.user || null
+    });
   },
 
   async searchCar(req, res) {
     const cars=[]
-    res.render("cari", { cars });
+    res.render("cari", { cars,   user: req.user || null});
   },
 
   async registerMember(req, res) {
+    console.log(req.body)
     const email_user = req.body.email;
+    const name = req.body.name;
+    const phone_number = req.body.phone;
     const id_type = req.body.id_type;
 
     const password_user = await encryptPassword(req.body.password);
@@ -94,9 +99,9 @@ module.exports = {
       return;
     }
     userService
-      .create({ id_type, email_user, password_user })
-      .then((post) => {
-        res.redirect("/");
+      .create({ id_type, email_user, password_user, name, phone_number })
+      .then(() => {
+        res.redirect("/login");
       })
       .catch((err) => {
         res.status(422).json({
@@ -153,7 +158,9 @@ module.exports = {
     const token = createToken({
       id: user.id,
       id_type: user.id_type,
-      email: user.email,
+      email: user.email_user,
+      name: user.name,
+      phone_number: user.phone_number,
       createdAt: user.createdAt,
       updatedAt: user.updatedAt,
     });
@@ -215,6 +222,7 @@ module.exports = {
   },
 
   async logout(req, res) {
+    res.clearCookie("jwt");
     res.cookie("express.sid", "", { expires: new Date() });
     res.redirect("/");
   },

@@ -11,15 +11,15 @@
     <form action="/api/v1/booking/create" method="POST">
       <div class="mb-3">
         <label for="nama" class="form-label">Nama</label>
-        <input type="text" class="form-control" name="name" required>
+        <input type="text" class="form-control" name="name" value="<%= user?.name %>" required>
       </div>
       <div class="mb-3">
         <label for="nomor_hp" class="form-label">Nomor HP</label>
-        <input type="number" class="form-control" name="phone" required>
+        <input type="number" class="form-control" name="phone" value="<%= user?.phone_number %>" required>
       </div>
       <div class="mb-3">
         <label for="email" class="form-label">Email</label>
-        <input type="email" class="form-control" name="email" required>
+        <input type="email" class="form-control" name="email" value="<%= user?.email %>"  required>
       </div>
       <div class="mb-3">
         <label for="tipe_mobil" class="form-label">Tipe Mobil</label>

@@ -24,62 +24,48 @@
   </head>
   <body>
     <section class="text-center">
-      <div
-        class="p-5 bg-image"
-        style="background-image: url(bg.jpg); height: 300px; width: 100%"
-      ></div>
-      <div
-        class="card mx-4 mx-md-5 shadow-5-strong"
-        style="
-          margin-top: -100px;
-          background: hsla(0, 0%, 100%, 0.8);
-          backdrop-filter: blur(30px);
-        "
-      >
-        <div class="card-body py-4 px-md-1">
-          <div class="row d-flex justify-content-center">
-            <div class="col-lg-8">
-              <h2 class="fw-bold mb-5">Register</h2>
-              <form method="POST" action="/api/v1/registerMember">
-                <!-- <div class="form-outline mb-4">
-								<input type="email" id="form2Example1" class="form-control" />
-								<label class="form-label" for="form2Example1">Name</label>
-							</div> -->
-                <!-- Email input -->
-                <input type="hidden" name="id_type" value="3" />
-                <div class="form-outline mb-4">
-                  <input
-                    type="email"
-                    id="form2Example1"
-                    name="email"
-                    class="form-control"
-                  />
-                  <label
-                    class="form-label"
-                    name="email_user"
-                    for="form2Example1"
-                    >Email address</label
-                  >
-                </div>
-                <div class="form-outline mb-4">
-                  <input
-                    type="password"
-                    name="password"
-                    id="form2Example2"
-                    class="form-control"
-                  />
-                  <label class="form-label" for="form2Example2">Password</label>
-                </div>
-                <div class="row mb-3">
-                  <div class="col d-flex justify-content-center">
-                    <p class="mx-2">Have Account?</p>
-                    <a class="mx-2" href="#!">Sign In</a>
+      <div class="container mt-5">
+        <div class="row justify-content-center">
+          <div class="col-md-6">
+            <div class="card shadow">
+              <div class="card-body">
+                <h3 class="card-title mb-4 text-center">Register</h3>
+                <form action="/api/v1/registerMember" method="POST">
+                  <input type="hidden" id="id_type" name="id_type" value="3">
+                  <!-- Name -->
+                  <div class="mb-3">
+                    <label for="name" class="form-label">Full Name</label>
+                    <input type="text" class="form-control" id="name" name="name" required>
                   </div>
-                </div>
-                <button type="submit" class="btn btn-primary btn-block mb-4">
-                  Register
-                </button>
-              </form>
+
+                  <!-- Email -->
+                  <div class="mb-3">
+                    <label for="email" class="form-label">Email address</label>
+                    <input type="email" class="form-control" id="email" name="email" required>
+                  </div>
+
+                  <!-- Phone -->
+                  <div class="mb-3">
+                    <label for="phone" class="form-label">Phone Number</label>
+                    <input type="text" class="form-control" id="phone" name="phone" required>
+                  </div>
+
+                  <!-- Password -->
+                  <div class="mb-3">
+                    <label for="password" class="form-label">Password</label>
+                    <input type="password" class="form-control" id="password" name="password" required>
+                  </div>
+
+                  <!-- Submit Button -->
+                  <div class="d-grid">
+                    <button type="submit" class="btn btn-primary">Register</button>
+                  </div>
+                </form>
+
+                <p class="mt-3 text-center">
+                  Already have an account? <a href="/login">Login here</a>
+                </p>
+              </div>
             </div>
           </div>
         </div>

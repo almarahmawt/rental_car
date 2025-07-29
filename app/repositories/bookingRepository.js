@@ -1,6 +1,6 @@
 const { Booking } = require("../models");
 const { Cars } = require("../models");
-const { Op } = require("sequelize");
+const { Op, fn, col, where } = require('sequelize');
 
 module.exports = {
   create(createArgs) {
@@ -23,12 +23,24 @@ module.exports = {
     return Booking.findByPk(id);
   },
 
-  // findOne(id) {
-  //   return Cars.findOne({
-  //     where: { id },
-  //     include: [{ model: Ukur, as: "size" }],
-  //   });
-  // },
+  searchByCar(search) {
+    return Booking.findAll({
+      include: [{
+        model: Cars,
+        as: "car",
+        where: {
+          [Op.or]: [
+            where(fn('LOWER', col('car.manufacture')), {
+              [Op.like]: `%${search.toLowerCase()}%`
+            }),
+            where(fn('LOWER', col('car.model')), {
+              [Op.like]: `%${search.toLowerCase()}%`
+            })
+          ]
+        }
+      }]
+    });
+  },
 
   // findAll() {
   //   return Cars.findAll({

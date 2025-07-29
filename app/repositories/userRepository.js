@@ -18,6 +18,7 @@ module.exports = {
   },
 
   find(id) {
+    console.log("finding user with id:", id);
     return User.findByPk({ where: { id } });
   },
 

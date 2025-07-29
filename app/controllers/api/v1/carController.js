@@ -2,6 +2,7 @@ const carService = require("../../../services/carService");
 const ukurService = require("../../../services/ukurService");
 const { readFile } = require("fs").promises;
 const activityService = require("../../../services/activityService");
+const user = require("../../../models/user");
 
 module.exports = {
   async formAdd(req, res) {
@@ -9,9 +10,15 @@ module.exports = {
   },
 
   async formBooking(req, res) {
+    console.log("User from token in booking page:", req.user);
     const cars = await carService.get(req.params.id);
     const coba = await ukurService.list();
-    res.render("formBookingCars", { cars, coba });
+    const user = req.user || null;
+    if(!req.user) {
+      return res.redirect("/login");
+    } else {
+      res.render("formBookingCars", { cars, coba, user });
+    }
   },
 
   async formUpdate(req, res) {
@@ -104,7 +111,7 @@ module.exports = {
         dateTime: req.body.tanggal,
         capacity: req.body.penumpang
       });
-      res.render("./cari", { cars });
+      res.render("./cari", { cars, user: req.user || null });
     } catch (err) {
       res.status(400).json({
         status: "FAIL",

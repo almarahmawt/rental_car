@@ -1,5 +1,5 @@
 const jwt = require("jsonwebtoken");
-const { User } = require("../models/user");
+const userController = require("../controllers/api/v1/authController");
 
 const requireAuth = (req, res, next) => {
   const token = req.cookies.jwt;
@@ -28,18 +28,21 @@ const requireAuth = (req, res, next) => {
 const checkUser = (req, res, next) => {
   const token = req.cookies.jwt;
   if (token) {
-    jwt.verify(token, "net ninja secret", async (err, decodedToken) => {
-      if (err) {
-        res.locals.user = null;
-        next();
-      } else {
-        let user = await User.findById(decodedToken.id);
-        res.locals.user = user;
-        next();
+    try {
+      const decoded = jwt.verify(token, process.env.JWT_SIGNATURE_KEY || "Rahasia");
+      let user = decoded
+      if (!user) {
+        req.user = null;
       }
-    });
+      req.user = user; 
+      next();
+    } catch (err) {
+      console.error("Invalid token:", err.message);
+      req.user = null;
+      next();
+    }
   } else {
-    res.locals.user = null;
+    req.user = null;
     next();
   }
 };

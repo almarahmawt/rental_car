@@ -42,9 +42,9 @@ const uploadFile = multer({ storage: diskStorage });
 apiRouter.get("*", middlewares.checkUser);
 
 // GET halaman
-apiRouter.get("/", controllers.api.v1.authController.main);
+apiRouter.get("/", middlewares.checkUser, controllers.api.v1.authController.main);
 apiRouter.get("/registrasi", controllers.api.v1.authController.formRegis);
-apiRouter.get("/cari", controllers.api.v1.authController.searchCar);
+apiRouter.get("/cari", middlewares.checkUser, controllers.api.v1.authController.searchCar);
 apiRouter.get("/booking/:id", controllers.api.v1.carController.formBooking);
 apiRouter.get("/home", controllers.api.v1.authController.main);
 apiRouter.get("/login", controllers.api.v1.authController.formLogin);
@@ -69,7 +69,7 @@ apiRouter.get(
 
 // api for resource cars
 apiRouter.post(
-  "/cari/mobil",
+  "/cari/mobil", middlewares.checkUser,
   controllers.api.v1.carController.findCar
 );
 apiRouter.post(
